@@ -1,5 +1,7 @@
 package DBClient;
 
+import DBClient.model.StudentWrapper;
+import DBClient.view.StudentsOverviewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,8 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
+    private StudentWrapper studentWrapper;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -45,6 +49,13 @@ public class MainApp extends Application {
         loader.setLocation(getClass().getResource(path));
         Parent overview = loader.load();
         rootLayout.setCenter(overview);
+
+        if(path.equals(STUDENTS_OVERVIEW)) {
+            if (studentWrapper != null);
+            studentWrapper = new StudentWrapper();
+            StudentsOverviewController controller = loader.getController();
+            controller.setStudentWrapper(studentWrapper);
+        }
     }
 
 

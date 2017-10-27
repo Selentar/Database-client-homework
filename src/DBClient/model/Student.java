@@ -12,7 +12,7 @@ public class Student {
     private final ObjectProperty<LocalDate> birthday;
     private final IntegerProperty age;
     private final StringProperty city;
-    private final StringProperty eMail;
+    private final StringProperty email;
     private final StringProperty phone;
 
     /**
@@ -26,14 +26,14 @@ public class Student {
     }
 
     public Student(int id, String fullName, LocalDate birthday,
-                   int age, String city, String eMail, String phone)
+                   int age, String city, String email, String phone)
     {
         this.id = new SimpleIntegerProperty(id);
         this.fullName = new SimpleStringProperty(fullName);
         this.birthday = new SimpleObjectProperty<>(birthday);
         this.age = new SimpleIntegerProperty(age);
         this.city = new SimpleStringProperty(city);
-        this.eMail = new SimpleStringProperty(eMail);
+        this.email = new SimpleStringProperty(email);
         this.phone = new SimpleStringProperty(phone);
     }
 
@@ -81,12 +81,12 @@ public class Student {
         return city;
     }
 
-    public String geteMail() {
-        return eMail.get();
+    public String getEmail() {
+        return email.get();
     }
 
-    public StringProperty eMailProperty() {
-        return eMail;
+    public StringProperty emailProperty() {
+        return email;
     }
 
     public String getPhone() {
@@ -117,8 +117,8 @@ public class Student {
         this.city.set(city);
     }
 
-    public void seteMail(String eMail) {
-        this.eMail.set(eMail);
+    public void setEmail(String email) {
+        this.email.set(email);
     }
 
     public void setPhone(String phone) {
