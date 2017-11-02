@@ -3,8 +3,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-
-<TableView fx:id="studentTable" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DBClient.view.StudentsOverviewController">
+<TableView fx:id="studentTable" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DBClient.view.overviews.StudentsOverviewController">
   <columns>
     <TableColumn fx:id="idColumn" prefWidth="50.0" text="id" />
     <TableColumn fx:id="fullNameColumn" prefWidth="150.0" text="full name" />
@@ -14,4 +13,7 @@
       <TableColumn fx:id="emailColumn" prefWidth="120.0" text="email" />
       <TableColumn fx:id="phoneColumn" prefWidth="120.0" text="Phone" />
   </columns>
+   <columnResizePolicy>
+      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+   </columnResizePolicy>
 </TableView>

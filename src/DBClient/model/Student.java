@@ -15,26 +15,14 @@ public class Student {
     private final StringProperty email;
     private final StringProperty phone;
 
-    /**
-     * Тестовый конструктор
-     * @param id
-     * @param fullName
-     */
-    public Student(int id, String fullName) {
-        this(id, fullName, LocalDate.of(1999, 4, 5),
-                0, "DefaultCity", "dog@gmail.com", "9998887766");
-    }
-
-    public Student(int id, String fullName, LocalDate birthday,
-                   int age, String city, String email, String phone)
-    {
-        this.id = new SimpleIntegerProperty(id);
-        this.fullName = new SimpleStringProperty(fullName);
-        this.birthday = new SimpleObjectProperty<>(birthday);
-        this.age = new SimpleIntegerProperty(age);
-        this.city = new SimpleStringProperty(city);
-        this.email = new SimpleStringProperty(email);
-        this.phone = new SimpleStringProperty(phone);
+    public Student() {
+        id = new SimpleIntegerProperty();
+        fullName = new SimpleStringProperty();
+        birthday = new SimpleObjectProperty<>();
+        age = new SimpleIntegerProperty();
+        city = new SimpleStringProperty();
+        email = new SimpleStringProperty();
+        phone = new SimpleStringProperty();
     }
 
     /*

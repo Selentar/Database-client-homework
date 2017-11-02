@@ -2,10 +2,12 @@ package DBClient.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
+import static DBClient.util.ErrorMessage.showErrorMessage;
+import static DBClient.util.ErrorMessage.showInformationMessage;
 
 public class DBConnectorViewController {
     @FXML
@@ -17,48 +19,49 @@ public class DBConnectorViewController {
     @FXML
     private TextField passwordField;
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/Lab1?autoReconnect=true&useSSL=false";
-    static final String USER = "root";
-    static final String PASS = "password";
-
+    private Connection dbConnection;
 
     @FXML
-    public void initialize() {
+    private void handleConnectToDB() {
+        if (ipAddressField.getCharacters().length() == 0 ||
+                databaseField.getCharacters().length() == 0 ||
+                userNameField.getCharacters().length() == 0 ||
+                passwordField.getCharacters().length() == 0)
+        {
+            showInformationMessage("Все поля должны быть заолненны!");
+            return;
+        }
 
+        String url = "jdbc:mysql://" + ipAddressField.getCharacters() + "/" +
+                databaseField.getCharacters() + "?autoReconnect=true&useSSL=false";
+        String user = userNameField.getCharacters().toString();
+        String password = passwordField.getCharacters().toString();
+
+        try {
+            dbConnection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            showErrorMessage("Все поля должны быть заолненны!");
+            e.printStackTrace();
+        }
+
+        if (dbConnection != null) handleClose();
     }
 
+    @FXML
+    private void fastDataInsert() {
+        ipAddressField.setText("localhost:3306");
+        databaseField.setText("Lab1");
+        userNameField.setText("root");
+        passwordField.setText("password");
+    }
 
+    @FXML
+    private void handleClose() {
+        Stage stage = (Stage) ipAddressField.getScene().getWindow();
+        stage.close();
+    }
 
-
-    public static void main(String[] argv) {
-
-        System.out.println("Testing connection to PostgreSQL JDBC");
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
-            e.printStackTrace();
-            return;
-        }
-
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
-        Connection connection = null;
-
-        try {
-            connection = DriverManager
-                    .getConnection(DB_URL, USER, PASS);
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed");
-            e.printStackTrace();
-            return;
-        }
-
-        if (connection != null) {
-            System.out.println("You successfully connected to database now");
-        } else {
-            System.out.println("Failed to make connection to database");
-        }
+    public Connection getDBConnection() {
+        return dbConnection;
     }
 }

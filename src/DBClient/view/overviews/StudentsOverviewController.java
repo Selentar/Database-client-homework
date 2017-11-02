@@ -1,7 +1,8 @@
-package DBClient.view;
+package DBClient.view.overviews;
 
 import DBClient.model.Student;
 import DBClient.model.StudentWrapper;
+import DBClient.model.WrapperInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 
-public class StudentsOverviewController {
+public class StudentsOverviewController implements OverviewInterface {
     @FXML
     private TableView<Student> studentTable;
     @FXML
@@ -32,10 +33,12 @@ public class StudentsOverviewController {
 
     /**
      * Вызываетс главным приложением, которое дает ссылка на массив студентов
-     * @param studentWrapper
+     * @param wrapper
      */
-    public void setStudentWrapper(StudentWrapper studentWrapper) {
-        this.studentWrapper = studentWrapper;
+    @Override
+    public void setWrapper(WrapperInterface wrapper) {
+        if (wrapper instanceof StudentWrapper)
+            this.studentWrapper = (StudentWrapper) wrapper;
         studentTable.setItems(studentWrapper.getStudents());
     }
 
@@ -48,5 +51,9 @@ public class StudentsOverviewController {
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    }
+
+    public Student getSelectedStudent() {
+        return studentTable.getSelectionModel().getSelectedItem();
     }
 }
